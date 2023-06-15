@@ -1,13 +1,14 @@
 { config, pkgs, lib, modulesPath, ... }:
 
 {
+  imports = [ (modulesPath + "/installer/scan/not-detected.nix") ];
   config = {
     boot = {
       loader = {
         systemd-boot.enable = true;
         efi.canTouchEfiVariables = true;
       };
-
+      extraModulePackages = [ ];
       initrd = {
         availableKernelModules =
           [ "xhci_pci" "thunderbolt" "nvme" "uas" "sd_mod" "rtsx_pci_sdmmc" ];
@@ -45,6 +46,7 @@
 
     networking.hostName = "druid";
     networking.useDHCP = lib.mkDefault true;
+    #networking.wireless.enable = true;
     security.polkit.enable = true;
 
     console.keyMap = "dvorak";
@@ -86,13 +88,16 @@
 
     security.pam.services.swaylock = { text = "auth inclued login"; };
 
+    services.fwupd.enable = true;
+    services.fprintd.enable = true;
+
     services.pipewire = {
       enable = true;
       alsa.enable = true;
       pulse.enable = true;
     };
 
-    environment.systemPackages = with pkgs; [ sway ];
+    environment.systemPackages = with pkgs; [ sway networkmanager ];
 
   };
 }

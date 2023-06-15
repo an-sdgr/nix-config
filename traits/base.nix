@@ -28,6 +28,8 @@
     environment.variables = { EDITOR = "${pkgs.neovimConfigured}/bin/nvim"; };
     environment.pathsToLink = [ "/share/nix-direnv" ];
 
+    programs.zsh.enable = true;
+
     #programs.bash.interactiveShellInit = ''
     #  eval "$(${pkgs.direnv}/bin/direnv hook bash)"
     #  source "${pkgs.fzf}/share/fzf/key-bindings.bash"
