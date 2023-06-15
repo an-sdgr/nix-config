@@ -22,3 +22,11 @@ Statix, style / antipattern checker
 nix run nixpkgs#statix check .
 ```
 
+## Container
+
+Working on container support:
+
+```shell-session
+nix build .#nixosConfigurations.docker.config.system.build.toplevel
+```
+
