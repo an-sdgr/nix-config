@@ -6,6 +6,7 @@
     boot = {
       loader = {
         systemd-boot.enable = true;
+        systemd-boot.configurationLimit = 5;
         efi.canTouchEfiVariables = true;
       };
       extraModulePackages = [ ];
@@ -46,7 +47,7 @@
 
     networking.hostName = "druid";
     networking.useDHCP = lib.mkDefault true;
-    #networking.wireless.enable = true;
+    
     security.polkit.enable = true;
 
     console.keyMap = "dvorak";

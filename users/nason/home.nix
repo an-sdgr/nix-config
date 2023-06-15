@@ -11,7 +11,12 @@
   programs.git = {
     enable = true;
     userName = "Austin Nason";
-    userEmail = "austin.nason@gmail.com";
+    userEmail = "austin.nason@schrodinger.com";
+    extraConfig = {
+      init = {
+        defaultBranch = "main";
+      };
+    };
   };
 
   home.packages = with pkgs; [
@@ -56,8 +61,13 @@
     package = pkgs.vscode;
     userSettings = {
       "workbench.colorTheme" = "Palenight Operator";
+      "editor.fontFamily" = "Jetbrains Mono";
+      "editor.fontSize" = 14;
+      "terminal.integrated.fontFamily" = "Jetbrains Mono";
+      "terminal.integrated.fontSize" = 14;
       "terminal.integrated.scrollback" = 10000;
       "editor.formatOnSave" = true;
+      "telemetry.telemetryLevel" = "off";
     };
     extensions = with pkgs.vscode-extensions;
       [
