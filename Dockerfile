@@ -15,3 +15,5 @@ COPY .git /root/.git
 WORKDIR /root
 RUN nix-shell -p git --command 'nix build .#nixosConfigurations.docker.config.system.build.toplevel'
 
+# RUN ./result/activate
+
