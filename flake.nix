@@ -7,7 +7,7 @@
       url = "github:nix-community/home-manager/release-23.05";
       inputs.nixpkgs.follows = "nixpkgs";
     };
-        stylix.url = "github:danth/stylix";
+    stylix.url = "github:danth/stylix";
   };
 
   outputs = { self, nixpkgs, home-manager, stylix }:
@@ -60,7 +60,6 @@
         });
 
       nixosConfigurations = let
-        # Shared config between both the liveimage and real system
         aarch64Base = {
           system = "aarch64-linux";
           modules = with self.nixosModules; [
@@ -82,14 +81,16 @@
           ];
         };
       in with self.nixosModules; {
+        # you will need a new workstation here if you want to build this
+        # couldn't make the LUKS stuff system independent
         druid = nixpkgs.lib.nixosSystem {
           inherit (x86_64Base) system;
-          modules = x86_64Base.modules
-          ++ [ 
-            platforms.druid 
+          modules = x86_64Base.modules ++ [
+            platforms.druid
             traits.workstation
             stylix.nixosModules.stylix
-            users.nason ];
+            users.nason
+          ];
         };
       };
 

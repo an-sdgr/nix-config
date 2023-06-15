@@ -3,7 +3,6 @@
 {
   imports = [
     ./sway.nix
-    #./stylix.nix
   ];
 
   home.username = "nason";
@@ -19,8 +18,6 @@
     (nerdfonts.override { fonts = [ "JetBrainsMono" ]; })
 
   ];
-
-  #programs.zsh.enable = true;
 
   programs.zsh = {
     enable = true;
