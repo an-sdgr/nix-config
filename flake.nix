@@ -29,8 +29,6 @@
           };
         in {
           inherit (pkgs) neovimConfigured;
-
-          unsafe-bootstrap = pkgs.callPackage ./packages/unsafe-bootstrap { };
         });
 
       devShells = forAllSystems (system:
@@ -88,6 +86,15 @@
           modules = x86_64Base.modules ++ [
             platforms.druid
             traits.workstation
+            stylix.nixosModules.stylix
+            users.nason
+          ];
+        };
+        docker = nixpkgs.lib.nixosSystem {
+          inherit (aarch64Base) system;
+          modules = aarch64Base.modules ++ [
+            platforms.container
+            traits.base
             stylix.nixosModules.stylix
             users.nason
           ];
