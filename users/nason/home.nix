@@ -16,7 +16,9 @@
 
   home.packages = with pkgs; [
     (nerdfonts.override { fonts = [ "JetBrainsMono" ]; })
-
+    terraform
+    ansible
+    ansible-lint
   ];
 
   programs.zsh = {
@@ -65,16 +67,28 @@
         mkhl.direnv
       ] ++ pkgs.vscode-utils.extensionsFromVscodeMarketplace [
         {
-          name = "material-palenight-theme";
-          publisher = "whizkydee";
-          version = "2.0.2";
-          sha256 = "sha256-//EpXe+kKloqbMIZ8kstUKdYB490tQBBilB3Z9FfBNI=";
+          name = "vim";
+          publisher = "vscodevim";
+          version = "1.25.2";
+          sha256 = "sha256-hy2Ks6oRc9io6vfgql9aFGjUiRzBCS4mGdDO3NqIFEg=";
         }
         {
           name = "todo-tree";
           publisher = "Gruntfuggly";
           version = "0.0.215";
           sha256 = "sha256-WK9J6TvmMCLoqeKWh5FVp1mNAXPWVmRvi/iFuLWMylM=";
+        }
+        {
+          name = "ansible";
+          publisher = "redhat";
+          version = "2.3.74";
+          sha256 = "sha256-7zQqdexZxkIJGfG+hBdrPAsZs6p6EetccreT+RsJ7yw=";
+        }
+        {
+          name = "terraform";
+          publisher = "hashicorp";
+          version = "2.26.1";
+          sha256 = "sha256-7DuGFC6tHHAuyfjmOUHS1DLC47TPhap3CI0AmAgEljk=";
         }
       ] ++ (if pkgs.stdenv.isx86_64 then
         with pkgs.vscode-extensions; [ ms-python.python ]
