@@ -86,7 +86,7 @@
       };
     };
 
-    security.pam.services.swaylock = { text = "auth inclued login"; };
+    security.pam.services.swaylock = { text = "auth include login"; };
 
     services.fwupd.enable = true;
     services.fprintd.enable = true;
