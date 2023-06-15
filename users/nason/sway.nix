@@ -1,8 +1,5 @@
 { config, pkgs, ... }:
 
-#with builtins;
-#with lib;
-
 {
   home.packages = with pkgs; [
     # sway stuff
@@ -169,6 +166,14 @@
     };
   };
 
+  services.swayidle = {
+    enable = true;
+    timeouts = [{
+      timeout = 60;
+      command = "${pkgs.swaylock}/bin/swaylock -fF";
+    }];
+  };
+
   home.pointerCursor = {
     name = "Adwaita";
     package = pkgs.gnome.adwaita-icon-theme;
@@ -178,7 +183,5 @@
       defaultCursor = "Adwaita";
     };
   };
-
-  services.swayidle.enable = true;
 
 }

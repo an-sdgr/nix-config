@@ -89,6 +89,14 @@
             users.nason
           ];
         };
+
+        podman = nixpkgs.lib.nixosSystem {
+          inherit (x86_64Base) system;
+          modules = x86_64Base.modules ++ [
+            platforms.container
+          ];
+        };
+
         docker = nixpkgs.lib.nixosSystem {
           inherit (aarch64Base) system;
           modules = aarch64Base.modules ++ [

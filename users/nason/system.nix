@@ -9,7 +9,14 @@
       home = "/home/nason";
       shell = pkgs.zsh;
       createHome = true;
-      extraGroups = [ "wheel" "disk" "networkmanager" "input" ];
+      extraGroups = [ 
+        "disk" 
+        "input"
+        "networkmanager" 
+        "podman"
+        "wheel" 
+      ];
     };
   };
 }
+

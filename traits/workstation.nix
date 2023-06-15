@@ -2,7 +2,6 @@
 { config, pkgs, ... }:
 
 {
-  config = {
 
     networking.networkmanager.enable = true;
 
@@ -39,8 +38,21 @@
         [ spotify ]
       else
         [ ]);
+    
+  virtualisation = {
+    podman = {
+      enable = true;
+      autoPrune = {
+        enable = true;
+        dates = "weekly";
+      };
+
+      dockerCompat = true;
+      dockerSocket.enable = true;
+      defaultNetwork.settings.dns_enabled = true;
+    };
+  };
 
     services.printing.enable = true;
-  };
 }
 

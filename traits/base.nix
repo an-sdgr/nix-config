@@ -2,7 +2,6 @@
 { config, pkgs, ... }:
 
 {
-  config = {
     time.timeZone = "America/Los_Angeles";
     # Windows wants hardware clock in local time instead of UTC
     time.hardwareClockInLocalTime = true;
@@ -54,6 +53,5 @@
     nixpkgs.config.allowUnfree = true;
 
     system.stateVersion = "23.05";
-  };
 }
 
