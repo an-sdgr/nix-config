@@ -1,5 +1,5 @@
 # A trait for all boxxen
-{ config, pkgs, lib, ... }:
+{ config, pkgs, ... }:
 
 {
   config = {

@@ -61,7 +61,7 @@
         aarch64Base = {
           system = "aarch64-linux";
           modules = with self.nixosModules; [
-            ({ config = { nix.registry.nixpkgs.flake = nixpkgs; }; })
+            { config = { nix.registry.nixpkgs.flake = nixpkgs; }; }
             home-manager.nixosModules.home-manager
             traits.overlay
             traits.base
@@ -71,7 +71,7 @@
         x86_64Base = {
           system = "x86_64-linux";
           modules = with self.nixosModules; [
-            ({ config = { nix.registry.nixpkgs.flake = nixpkgs; }; })
+            { config = { nix.registry.nixpkgs.flake = nixpkgs; }; }
             home-manager.nixosModules.home-manager
             traits.overlay
             traits.base

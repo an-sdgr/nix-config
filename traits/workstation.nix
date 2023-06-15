@@ -1,5 +1,5 @@
 # A trait for headed boxxen - sway + wayland
-{ config, pkgs, lib, ... }:
+{ config, pkgs, ... }:
 
 {
   config = {
