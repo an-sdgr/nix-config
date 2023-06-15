@@ -65,7 +65,6 @@
             home-manager.nixosModules.home-manager
             traits.overlay
             traits.base
-            services.openssh
           ];
         };
         x86_64Base = {
@@ -75,7 +74,6 @@
             home-manager.nixosModules.home-manager
             traits.overlay
             traits.base
-            services.openssh
           ];
         };
       in with self.nixosModules; {
@@ -85,8 +83,9 @@
           inherit (x86_64Base) system;
           modules = x86_64Base.modules ++ [
             platforms.druid
-            traits.workstation
+            services.openssh
             stylix.nixosModules.stylix
+            traits.workstation
             users.nason
           ];
         };
@@ -94,9 +93,6 @@
           inherit (aarch64Base) system;
           modules = aarch64Base.modules ++ [
             platforms.container
-            traits.base
-            stylix.nixosModules.stylix
-            users.nason
           ];
         };
       };
