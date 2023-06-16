@@ -30,3 +30,9 @@ Working on container support:
 nix build .#nixosConfigurations.docker.config.system.build.toplevel
 ```
 
+## Devbox
+
+Installed with the system flakes.
+
+https://www.jetpack.io/devbox/docs/installing_devbox/
+

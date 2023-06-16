@@ -13,6 +13,7 @@
       zsh
       direnv
       nix-direnv
+      devbox
       git
       jq
       lsof
@@ -23,7 +24,7 @@
       neovimConfigured
       rnix-lsp
     ];
-    environment.shellAliases = { };
+    #environment.shellAliases = { };
     environment.variables = { EDITOR = "${pkgs.neovimConfigured}/bin/nvim"; };
     environment.pathsToLink = [ "/share/nix-direnv" ];
 
