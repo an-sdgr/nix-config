@@ -2,13 +2,14 @@
 { config, pkgs, ... }:
 
 {
-    time.timeZone = "America/Los_Angeles";
-    # Windows wants hardware clock in local time instead of UTC
-    time.hardwareClockInLocalTime = true;
+  i18n.defaultLocale = "en_US.UTF-8";
+  time = {
+    timeZone = "America/Los_Angeles";
+    hardwareClockInLocalTime = true;
+  };
 
-    i18n.defaultLocale = "en_US.UTF-8";
-
-    environment.systemPackages = with pkgs; [
+  environment = {
+    systemPackages = with pkgs; [
       # Shell utilities
       zsh
       direnv
@@ -26,35 +27,40 @@
       rnix-lsp
       home-manager
     ];
-    #environment.shellAliases = { };
-    environment.variables = { EDITOR = "${pkgs.neovimConfigured}/bin/nvim"; };
-    environment.pathsToLink = [ "/share/nix-direnv" ];
+    #shellAliases = { };
+    pathsToLink = [ "/share/nix-direnv" ];
+    variables = { EDITOR = "${pkgs.neovimConfigured}/bin/nvim"; };
+  };
 
-    programs.zsh.enable = true;
+  programs.zsh.enable = true;
 
-    #programs.bash.interactiveShellInit = ''
-    #  eval "$(${pkgs.direnv}/bin/direnv hook bash)"
-    #  source "${pkgs.fzf}/share/fzf/key-bindings.bash"
-    #  source "${pkgs.fzf}/share/fzf/completion.bash"
-    #'';
+  #programs.bash.interactiveShellInit = ''
+  #  eval "$(${pkgs.direnv}/bin/direnv hook bash)"
+  #  source "${pkgs.fzf}/share/fzf/key-bindings.bash"
+  #  source "${pkgs.fzf}/share/fzf/completion.bash"
+  #'';
 
-    security.sudo.wheelNeedsPassword = false;
-    security.sudo.extraConfig = ''
-      Defaults lecture = never
-    '';
+  security = {
+    sudo = {
+      wheelNeedsPassword = false;
+      extraConfig = ''
+        Defaults lecture = never
+      '';
+    };
+  };
 
-    nix.extraOptions = ''
+  nix = {
+    settings.experimental-features = [ "nix-command" "flakes" ];
+    extraOptions = ''
       experimental-features = nix-command flakes
     '';
+  };
 
-    nix.settings.experimental-features = [ "nix-command" "flakes" ];
-    #nix.package = pkgs.nixUnstable;
+  home-manager = {
+    useGlobalPkgs = true;
+    useUserPackages = true;
+  };
 
-    home-manager.useGlobalPkgs = true;
-    home-manager.useUserPackages = true;
-
-    nixpkgs.config.allowUnfree = true;
-
-    system.stateVersion = "23.05";
+  system.stateVersion = "23.05";
 }
 
