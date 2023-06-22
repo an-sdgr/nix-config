@@ -56,6 +56,13 @@
     ];
   };
 
+  programs.firefox = {
+    enable = true;
+    profiles.default = {
+      isDefault = true;
+    };
+  };
+
   programs.vscode = {
     enable = true;
     package = pkgs.vscode;

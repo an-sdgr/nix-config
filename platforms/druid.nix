@@ -76,6 +76,9 @@
       };
 
       fstrim.enable = true;
+      fprintd = {
+        enable = true;
+      };
     };
 
     hardware = {

@@ -1,5 +1,5 @@
 # A trait for headed boxxen - sway + wayland
-{ config, pkgs, lib, ... }:
+{ config, pkgs, lib, nur, ... }:
 
 {
 
@@ -55,6 +55,12 @@
     else
       [ ]);
 
+
+  environment.sessionVariables = {
+   MOZ_ENABLE_WAYLAND = "1";
+   XDG_CURRENT_DESKTOP = "sway"; 
+   };
+
   # wayland xdg settings
   xdg = {
     mime.defaultApplications = {
@@ -88,7 +94,6 @@
   services = {
     dbus.packages = with pkgs; [ dconf ];
     fwupd.enable = true;
-    fprintd.enable = true;
     printing.enable = true;
     upower = {
       enable = true;
