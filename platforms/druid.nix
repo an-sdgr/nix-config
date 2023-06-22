@@ -11,7 +11,14 @@
         efi.canTouchEfiVariables = true;
       };
 
-      extraModulePackages = [ ];
+      kernelParams = [
+        "acpi_osi=Linux"
+        "pcie_aspm=force"
+        "drm.vblankoffdelay=1"
+        "mem_sleep_default=deep"
+        "i915.enable_psr=0"
+      ];
+
       initrd = {
         availableKernelModules =
           [ "xhci_pci" "thunderbolt" "nvme" "uas" "sd_mod" "rtsx_pci_sdmmc" ];
@@ -47,18 +54,24 @@
 
     nixpkgs.hostPlatform = lib.mkDefault "x86_64-linux";
 
-    environment.systemPackages = with pkgs;
-    [
+    environment.systemPackages = with pkgs; [
       intel-gmmlib
+      mesa.drivers
+      egl-wayland
     ];
     networking.hostName = "druid";
     networking.useDHCP = lib.mkDefault true;
 
     console.keyMap = "dvorak";
-    services.xserver = {
-      layout = "us";
-      xkbVariant = "dvorak";
-      videoDrivers = [ "nvidia" ]; # comment if not using nvidia
+
+    services = {
+      xserver = {
+        layout = "us";
+        xkbVariant = "dvorak";
+        videoDrivers = [ "nvidia" ]; # comment if not using nvidia
+      };
+
+      fstrim.enable = true;
     };
 
     hardware = {
@@ -70,7 +83,18 @@
         package = config.boot.kernelPackages.nvidiaPackages.stable;
         open = true;
         nvidiaSettings = true;
+        nvidiaPersistenced = true;
         powerManagement.enable = true;
+        powerManagement.finegrained = true;
+        prime = {
+          offload = {
+            enable = true;
+            enableOffloadCmd = true;
+          };
+
+          intelBusId = "PCI:0:2:0";
+          nvidiaBusId = "PCI:1:0:0";
+        };
       };
 
       opengl = {
@@ -78,6 +102,12 @@
         driSupport = true;
         driSupport32Bit = true;
         setLdLibraryPath = true;
+        extraPackages = with pkgs; [
+          vaapiIntel
+          vaapiVdpau
+          libvdpau-va-gl
+          intel-media-driver
+        ];
       };
     };
 
