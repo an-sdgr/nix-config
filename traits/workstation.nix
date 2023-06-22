@@ -30,7 +30,9 @@
         swayidle
         kitty
         firefox
-        neovimConfigured
+        vim
+        qemu
+        #neovimConfigured
       ] ++ (if stdenv.isx86_64 then [
         chromium
         spotify

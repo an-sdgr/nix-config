@@ -15,6 +15,7 @@
       nix-direnv
       devbox
       git
+      gcc
       jq
       lsof
       htop
