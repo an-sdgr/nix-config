@@ -40,9 +40,10 @@
       # gpu
       glxinfo
       #neovimConfigured
-    ] ++ (if stdenv.isx86_64 then
-      [ spotify chromium ]
-    else if stdenv.isAarch64 then
+    ] ++ (if stdenv.isx86_64 then [
+      spotify
+      chromium
+    ] else if stdenv.isAarch64 then
       [ spotify ]
     else
       [ ]);
@@ -76,6 +77,11 @@
   services.fwupd.enable = true;
   services.fprintd.enable = true;
   services.printing.enable = true;
+  services.upower = {
+    enable = true;
+    percentageLow = 20;
+    percentageCritical = 5;
+  };
   services.pipewire = {
     enable = true;
     alsa.enable = true;
