@@ -24,6 +24,7 @@
       killall
       neovimConfigured
       rnix-lsp
+      home-manager
     ];
     #environment.shellAliases = { };
     environment.variables = { EDITOR = "${pkgs.neovimConfigured}/bin/nvim"; };

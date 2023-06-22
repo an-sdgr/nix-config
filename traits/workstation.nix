@@ -32,15 +32,28 @@
         firefox
         vim
         qemu
+        appgate-sdp
+        xdg-utils
+        xdg-desktop-portal
+        xdg-desktop-portal-wlr
         #neovimConfigured
       ] ++ (if stdenv.isx86_64 then [
-        chromium
         spotify
       ] else if stdenv.isAarch64 then
         [ spotify ]
       else
-        [ ]);
-    
+      [ ] 
+      );
+
+  xdg.mime.defaultApplications = {
+    "text/html" = "firefox.desktop";
+    "x-default-browser" = "firefox.desktop";
+    "x-scheme-handler/http" = "firefox.desktop";
+    "x-scheme-handler/https" = "firefox.desktop";
+    "x-scheme-handler/about" = "firefox.desktop";
+    "x-scheme-handler/unknown" = "firefox.desktop";
+  };
+
   virtualisation = {
     podman = {
       enable = true;
