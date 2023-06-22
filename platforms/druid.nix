@@ -47,8 +47,6 @@
 
     networking.hostName = "druid";
     networking.useDHCP = lib.mkDefault true;
-    
-    security.polkit.enable = true;
 
     console.keyMap = "dvorak";
     services.xserver = {
@@ -69,36 +67,10 @@
     hardware.nvidia.package = config.boot.kernelPackages.nvidiaPackages.stable;
     hardware.nvidia.modesetting.enable = true;
 
-    powerManagement.powertop.enable = true;
-    powerManagement.cpuFreqGovernor = lib.mkDefault "powersave";
     hardware.nvidia.powerManagement.enable = true; # experimental
 
     hardware.cpu.intel.updateMicrocode =
       lib.mkDefault config.hardware.enableRedistributableFirmware;
-
-    # wayland xdg settings
-    xdg = {
-      portal = {
-        enable = true;
-        extraPortals = with pkgs; [
-          xdg-desktop-portal-wlr
-          xdg-desktop-portal-gtk
-        ];
-      };
-    };
-
-    security.pam.services.swaylock = { text = "auth include login"; };
-
-    services.fwupd.enable = true;
-    services.fprintd.enable = true;
-
-    services.pipewire = {
-      enable = true;
-      alsa.enable = true;
-      pulse.enable = true;
-    };
-
-    environment.systemPackages = with pkgs; [ sway networkmanager ];
 
   };
 }
