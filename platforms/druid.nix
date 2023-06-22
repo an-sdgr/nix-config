@@ -1,6 +1,7 @@
 { config, pkgs, lib, modulesPath, ... }:
 
 {
+  # druid is a x86_64 intel laptop with nvidia graphics
   imports = [ (modulesPath + "/installer/scan/not-detected.nix") ];
   config = {
     boot = {
@@ -9,6 +10,7 @@
         systemd-boot.configurationLimit = 5;
         efi.canTouchEfiVariables = true;
       };
+
       extraModulePackages = [ ];
       initrd = {
         availableKernelModules =
@@ -45,6 +47,10 @@
 
     nixpkgs.hostPlatform = lib.mkDefault "x86_64-linux";
 
+    environment.systemPackages = with pkgs;
+    [
+      intel-gmmlib
+    ];
     networking.hostName = "druid";
     networking.useDHCP = lib.mkDefault true;
 
@@ -60,8 +66,10 @@
         lib.mkDefault config.hardware.enableRedistributableFirmware;
 
       nvidia = {
-        package = config.boot.kernelPackages.nvidiaPackages.stable;
         modesetting.enable = true;
+        package = config.boot.kernelPackages.nvidiaPackages.stable;
+        open = true;
+        nvidiaSettings = true;
         powerManagement.enable = true;
       };
 
@@ -69,6 +77,7 @@
         enable = true;
         driSupport = true;
         driSupport32Bit = true;
+        setLdLibraryPath = true;
       };
     };
 

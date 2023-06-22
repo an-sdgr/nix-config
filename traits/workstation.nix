@@ -5,21 +5,25 @@
 
   networking.networkmanager.enable = true;
 
-  programs.dconf.enable = true;
-  services.dbus.packages = with pkgs; [ dconf ];
-
-  hardware.opengl.driSupport = true;
-
-  fonts.fontconfig.enable = true;
-  fonts.enableDefaultFonts = true;
-  fonts.fonts = with pkgs; [
-    noto-fonts
-    noto-fonts-cjk
-    noto-fonts-emoji
-    jetbrains-mono
-    fira-code
-    fira-code-symbols
-  ];
+  programs = {
+    dconf.enable = true;
+    firefox = {
+      enable = true;
+    };
+  };
+  
+  fonts = {
+    fontconfig.enable = true;
+    enableDefaultFonts = true;
+    fonts = with pkgs; [
+      noto-fonts
+      noto-fonts-cjk
+      noto-fonts-emoji
+      jetbrains-mono
+      fira-code
+      fira-code-symbols
+    ];
+  };
 
   environment.systemPackages = with pkgs;
     [
@@ -29,7 +33,6 @@
       swaylock
       swayidle
       kitty
-      firefox
       vim
       qemu
       appgate-sdp
@@ -39,6 +42,10 @@
       xdg-desktop-portal-wlr
       # gpu
       glxinfo
+      vulkan-tools
+      # desktop
+      firefox
+      ffmpeg
       #neovimConfigured
     ] ++ (if stdenv.isx86_64 then [
       spotify
@@ -68,24 +75,32 @@
     };
   };
 
-  powerManagement.powertop.enable = true;
-  powerManagement.cpuFreqGovernor = lib.mkDefault "performance";
-
-  security.polkit.enable = true;
-  security.pam.services.swaylock = { text = "auth include login"; };
-
-  services.fwupd.enable = true;
-  services.fprintd.enable = true;
-  services.printing.enable = true;
-  services.upower = {
-    enable = true;
-    percentageLow = 20;
-    percentageCritical = 5;
+  powerManagement = {
+    cpuFreqGovernor = lib.mkDefault "performance";
+    powertop.enable = true;
   };
-  services.pipewire = {
-    enable = true;
-    alsa.enable = true;
-    pulse.enable = true;
+
+  security = {
+    polkit.enable = true;
+    pam.services.swaylock = { text = "auth include login"; };
+  };
+
+  services = {
+    dbus.packages = with pkgs; [ dconf ];
+    fwupd.enable = true;
+    fprintd.enable = true;
+    printing.enable = true;
+    upower = {
+      enable = true;
+      percentageLow = 20;
+      percentageCritical = 5;
+    };
+
+    pipewire = {
+      enable = true;
+      alsa.enable = true;
+      pulse.enable = true;
+    };
   };
 
   virtualisation = {
