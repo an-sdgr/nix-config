@@ -23,7 +23,7 @@
         availableKernelModules =
           [ "xhci_pci" "thunderbolt" "nvme" "uas" "sd_mod" "rtsx_pci_sdmmc" ];
 
-        kernelModules = [ "kvm-intel" ];
+        kernelModules = [ "nvidia" "nvidia_modeset" "nvidia_uvm" "nvidia_drm" "kvm-intel" ];
 
         secrets = { "/crypto_keyfile.bin" = null; };
 
@@ -61,8 +61,12 @@
     ];
     networking.hostName = "druid";
     networking.useDHCP = lib.mkDefault true;
-
-    console.keyMap = "dvorak";
+    console = {
+      keyMap = "dvorak";
+      earlySetup = true;
+      font = "ter-i32b";
+      packages = with pkgs; [ terminus_font ];
+    };
 
     services = {
       xserver = {
@@ -77,15 +81,19 @@
     hardware = {
       cpu.intel.updateMicrocode =
         lib.mkDefault config.hardware.enableRedistributableFirmware;
-
-      nvidia = {
+        
+        nvidia = {
         modesetting.enable = true;
         package = config.boot.kernelPackages.nvidiaPackages.stable;
         open = true;
         nvidiaSettings = true;
+        # https://github.com/NixOS/nixos-hardware/issues/348#issuecomment-997123102
         nvidiaPersistenced = true;
-        powerManagement.enable = true;
-        powerManagement.finegrained = true;
+        powerManagement = {
+          enable = true;
+          finegrained = true;
+        };
+
         prime = {
           offload = {
             enable = true;
