@@ -22,17 +22,3 @@ Statix, style / antipattern checker
 nix run nixpkgs#statix check .
 ```
 
-## Container
-
-Working on container support:
-
-```shell-session
-nix build .#nixosConfigurations.docker.config.system.build.toplevel
-```
-
-## Devbox
-
-Installed with the system flakes.
-
-https://www.jetpack.io/devbox/docs/installing_devbox/
-
